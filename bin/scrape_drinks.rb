@@ -64,20 +64,29 @@ def get_ingredients
   }
 
   ingredients
-
-  #detailed_drink_list.each_with_index { |drink, index |
-
-  #  print "#{drink}\n"
-  #  if index == 3
-  #    break
-  #  end
-  #}
-
 end
 
 def create_map_ingredient_drink(drinks, ingredients)
+  File.delete('./output/map_ingredient_drink.json') if File.exist?('./output/map_ingredient_drink.json')
   drinks.each_with_index { | item, index |
-    #print "#{item['idDrink']} #{item['strDrink']} #{item['strIngredient1'] ingredients
+    #print "#{item['idDrink']} #{item['strDrink']} #{ingredients.key(item['strIngredient1'])} #{item['strIngredient1']} \n"
+    # #{item['strIngredient1'] ingredients
+    #print drinks['strIngredient1']
+
+    open('./output/map_ingredient_drink.json', 'a') { |f|
+      (1..15).each do |ingredient_id|
+        unless ingredients.key(item["strIngredient#{ingredient_id}"]).nil?
+          mapping = {:drinkId => item['idDrink'],
+                     :ingredientId => ingredients.key(item["strIngredient#{ingredient_id}"]),
+                     :measurement => item["strMeasure#{ingredient_id}"]}
+          f.puts mapping.to_json
+        end
+
+        #mapping = {:drinkId => item['idDrink'], :ingredientId => ingredients.key(item['strIngredient1']), :measurement => item['strMeasure1']}
+        #f.puts mapping.to_json
+
+      end
+    }
   }
 end
 
