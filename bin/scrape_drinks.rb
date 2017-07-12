@@ -9,12 +9,12 @@ def get_alcohol_types
   return alcohol_types
 end
 
-def get_json(alcohol_types, element)
+def get_drinks_id(alcohol_types)
 
   drinks_list= Array.new
   alcohol_types['drinks'].each { |alcohol_type|
     unless alcohol_type['strAlcoholic'].nil?
-      url =  "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=#{alcohol_type[element]}".gsub(' ',  '_')
+      url =  "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=#{alcohol_type['strAlcoholic']}".gsub(' ',  '_')
       uri = URI(url)
       response = Net::HTTP.get(uri)
       drink_list = JSON.parse(response)
@@ -24,27 +24,69 @@ def get_json(alcohol_types, element)
    drinks_list
 end
 
-def parse_drinks(drinks_list, element)
+def get_drinks(drinks_list)
   detailed_drink_list= Array.new
   drinks_list.each_with_index { |id, index|
-    url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{id[element]}".gsub(' ',  '_')
+    url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{id['idDrink']}".gsub(' ',  '_')
     uri = URI(url)
     response = Net::HTTP.get(uri)
     drink = JSON.parse(response)['drinks']
     detailed_drink_list.push drink[0]
-
+    #print drink[0].class.name
+    #print drink[0]
     drink_name = drink[0]['strDrink'].gsub(' ',  '_').gsub('/','_')
-    open("./output/#{drink_name}.json", 'w') { |f|
+    open("./output/drinks/#{drink_name}.json", 'w') { |f|
       f.puts drink[0].to_json
     }
+    if index == 3
+      break
+    end
   }
   detailed_drink_list
 end
 
-alcohol_types = get_alcohol_types
-drinks_list = get_json(alcohol_types, 'strAlcoholic')
-parse_drinks(drinks_list, 'idDrink')
+def get_ingredients
+  ingredients = Hash.new
+  url =  'http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
+  uri = URI(url)
+  response = Net::HTTP.get(uri)
+  ingredient_list = JSON.parse(response)
+  # print drink_list['drinks']
+  ingredient_list['drinks'].each_with_index { | item, index |
+    #ingredient[:'ingredientId'] = index
+    #ingredient[:'name'] = ingredient['strIngredient1']
+    ingredients[index] = item['strIngredient1']
+    single_ingredient = {:ingredientId => index,:name => item['strIngredient1']}
+    #open("./output/ingredients/#{ingredient['strIngredient1']}.json", 'w') { |f|
+    open("./output/ingredients/#{item['strIngredient1']}.json", 'w') { |f|
+      f.puts single_ingredient.to_json
+    }
+  }
 
-#open('./output/drinkslist.backup', 'w') { |f|
-#  f.puts detailed_drink_list.to_json
-#}
+  ingredients
+
+  #detailed_drink_list.each_with_index { |drink, index |
+
+  #  print "#{drink}\n"
+  #  if index == 3
+  #    break
+  #  end
+  #}
+
+end
+
+def create_map_ingredient_drink(drinks, ingredients)
+  drinks.each_with_index { | item, index |
+    #print "#{item['idDrink']} #{item['strDrink']} #{item['strIngredient1'] ingredients
+  }
+end
+
+alcohol_types = get_alcohol_types
+drinks_id = get_drinks_id(alcohol_types)
+drinks = get_drinks(drinks_id)
+ingredients = get_ingredients
+create_map_ingredient_drink(drinks, ingredients)
+
+
+
+
