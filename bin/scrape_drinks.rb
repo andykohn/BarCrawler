@@ -5,8 +5,9 @@ def get_alcohol_types
   url = 'http://www.thecocktaildb.com/api/json/v1/1/list.php?a=list'
   uri = URI(url)
   response = Net::HTTP.get(uri)
-  alcohol_types = JSON.parse(response)
-  return alcohol_types
+  JSON.parse(response)
+  #alcohol_types = JSON.parse(response)
+  # alcohol_types
 end
 
 def get_drinks_id(alcohol_types)
@@ -26,21 +27,19 @@ end
 
 def get_drinks(drinks_list)
   detailed_drink_list= Array.new
+  File.delete('./output/drink.json') if File.exist?('./output/drink.json')
   drinks_list.each_with_index { |id, index|
     url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{id['idDrink']}".gsub(' ',  '_')
     uri = URI(url)
     response = Net::HTTP.get(uri)
     drink = JSON.parse(response)['drinks']
     detailed_drink_list.push drink[0]
-    #print drink[0].class.name
-    #print drink[0]
-    drink_name = drink[0]['strDrink'].gsub(' ',  '_').gsub('/','_')
-    open("./output/drinks/#{drink_name}.json", 'w') { |f|
+    open('./output/drink.json', 'a') { |f|
       f.puts drink[0].to_json
     }
-    if index == 3
-      break
-    end
+    #if index == 2
+    #  break
+    #end
   }
   detailed_drink_list
 end
@@ -51,39 +50,32 @@ def get_ingredients
   uri = URI(url)
   response = Net::HTTP.get(uri)
   ingredient_list = JSON.parse(response)
-  # print drink_list['drinks']
+  File.delete('./output/ingredients.json') if File.exist?('./output/ingredients.json')
   ingredient_list['drinks'].each_with_index { | item, index |
-    #ingredient[:'ingredientId'] = index
-    #ingredient[:'name'] = ingredient['strIngredient1']
     ingredients[index] = item['strIngredient1']
     single_ingredient = {:ingredientId => index,:name => item['strIngredient1']}
-    #open("./output/ingredients/#{ingredient['strIngredient1']}.json", 'w') { |f|
-    open("./output/ingredients/#{item['strIngredient1']}.json", 'w') { |f|
+    open('./output/ingredients.json', 'a') { |f|
       f.puts single_ingredient.to_json
     }
-  }
 
+  }
   ingredients
 end
 
 def create_map_ingredient_drink(drinks, ingredients)
   File.delete('./output/map_ingredient_drink.json') if File.exist?('./output/map_ingredient_drink.json')
-  drinks.each_with_index { | item, index |
-    #print "#{item['idDrink']} #{item['strDrink']} #{ingredients.key(item['strIngredient1'])} #{item['strIngredient1']} \n"
-    # #{item['strIngredient1'] ingredients
-    #print drinks['strIngredient1']
+  drinks.each_with_index { | item |
 
     open('./output/map_ingredient_drink.json', 'a') { |f|
       (1..15).each do |ingredient_id|
         unless ingredients.key(item["strIngredient#{ingredient_id}"]).nil?
           mapping = {:drinkId => item['idDrink'],
                      :ingredientId => ingredients.key(item["strIngredient#{ingredient_id}"]),
-                     :measurement => item["strMeasure#{ingredient_id}"]}
+                     :measurement => item["strMeasure#{ingredient_id}"],
+                     :iorder => ingredient_id
+          }
           f.puts mapping.to_json
         end
-
-        #mapping = {:drinkId => item['idDrink'], :ingredientId => ingredients.key(item['strIngredient1']), :measurement => item['strMeasure1']}
-        #f.puts mapping.to_json
 
       end
     }
@@ -96,6 +88,53 @@ drinks = get_drinks(drinks_id)
 ingredients = get_ingredients
 create_map_ingredient_drink(drinks, ingredients)
 
+
+=begin
+
+Creating drinks table:
+CREATE EXTERNAL TABLE IF NOT EXISTS drinks_db.drinks (
+  `idDrink` INT,
+  `strDrink` string,
+  `strCategory` string,
+  `strAlcoholic` string,
+  `strGlass` string,
+  `strInstructions` string,
+  `strDrinkThumb` string,
+  `dateModified` string
+)
+ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = '1','ignore.malformed.json' = 'true'
+) LOCATION 's3://drinkslistak/drinks/'
+TBLPROPERTIES ('has_encrypted_data'='false')
+
+
+Creating ingredients table:
+CREATE EXTERNAL TABLE IF NOT EXISTS drinks_db.ingredients (
+  `ingredientId` INT,
+  `name` string
+)
+ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = '1','ignore.malformed.json' = 'true'
+) LOCATION 's3://drinkslistak/ingredients/'
+TBLPROPERTIES ('has_encrypted_data'='false')
+
+
+Creating map_ingredient_drink table:
+CREATE EXTERNAL TABLE IF NOT EXISTS drinks_db.map_ingredient_drink (
+  `drinkId` INT,
+  `ingredientId` INT,
+  `measurement` string,
+  `order` INT
+)
+ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = '1','ignore.malformed.json' = 'true'
+) LOCATION 's3://drinkslistak/map_ingredient_drink/'
+TBLPROPERTIES ('has_encrypted_data'='false')
+
+=end
 
 
 
