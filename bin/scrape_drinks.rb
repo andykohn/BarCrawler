@@ -25,6 +25,20 @@ def get_drinks_id(alcohol_types)
    drinks_list
 end
 
+def get_fixed_drink (drink)
+  fixed_drink                   = {}
+  fixed_drink[:idDrink]         = drink['idDrink']
+  fixed_drink[:strDrink]        = drink['strDrink']
+  fixed_drink[:strCategory]     = drink['strCategory']
+  fixed_drink[:strAlcoholic]    = drink['strAlcoholic']
+  fixed_drink[:strGlass]        = drink['strGlass']
+  fixed_drink[:strInstructions] = drink['strInstructions']
+  fixed_drink[:strDrinkThumb]   = drink['strDrinkThumb']
+  fixed_drink[:dateModified]    = drink['dateModified']
+
+  fixed_drink
+end
+
 def get_drinks(drinks_list)
   detailed_drink_list= Array.new
   File.delete('./output/drink.json') if File.exist?('./output/drink.json')
@@ -33,9 +47,13 @@ def get_drinks(drinks_list)
     uri = URI(url)
     response = Net::HTTP.get(uri)
     drink = JSON.parse(response)['drinks']
+
+
+    fixed_drink = get_fixed_drink(drink[0])
+
     detailed_drink_list.push drink[0]
-    open('./output/drink.json', 'a') { |f|
-      f.puts drink[0].to_json
+    open('./output/drink2.json', 'a') { |f|
+      f.puts fixed_drink.to_json
     }
     #if index == 2
     #  break
