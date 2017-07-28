@@ -41,7 +41,7 @@ end
 
 def get_drinks(drinks_list)
   detailed_drink_list= Array.new
-  File.delete('./output/drink.json') if File.exist?('./output/drink.json')
+  File.delete('./output/thecocktaildb_drink.json') if File.exist?('./output/thecocktaildb_drink.json')
   drinks_list.each_with_index { |id, index|
     url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{id['idDrink']}".gsub(' ',  '_')
     uri = URI(url)
@@ -68,7 +68,7 @@ def get_ingredients
   uri = URI(url)
   response = Net::HTTP.get(uri)
   ingredient_list = JSON.parse(response)
-  File.delete('./output/ingredients.json') if File.exist?('./output/ingredients.json')
+  File.delete('./output/thecocktaildb_ingredients.json') if File.exist?('./output/thecocktaildb_ingredients.json')
   ingredient_list['drinks'].each_with_index { | item, index |
     ingredients[index] = item['strIngredient1']
     single_ingredient = {:ingredientId => index,:name => item['strIngredient1']}
@@ -81,7 +81,7 @@ def get_ingredients
 end
 
 def create_map_ingredient_drink(drinks, ingredients)
-  File.delete('./output/map_ingredient_drink.json') if File.exist?('./output/map_ingredient_drink.json')
+  File.delete('./output/thecocktaildb_map_ingredient_drink.json') if File.exist?('./output/thecocktaildb_map_ingredient_drink.json')
   drinks.each_with_index { | item |
 
     open('./output/map_ingredient_drink.json', 'a') { |f|

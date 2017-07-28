@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12f6f29e-51ef-4f4d-9000-0a0d15d9cf22" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/scrape_drinks.rb" afterPath="$PROJECT_DIR$/bin/scrape_drinks.rb" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -22,41 +21,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="scrape_drinks.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scrape_drinks.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bin/scrape_drinks.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-390">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="map_ingredient_drink.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bin/output/map_ingredient_drink.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="73" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="drink2.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/output/drink2.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="421" column="0" lean-forward="false" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ingredients.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/output/ingredients.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="244" column="25" lean-forward="false" selection-start-line="244" selection-start-column="21" selection-end-line="244" selection-end-column="25" />
+            <state relative-caret-position="1185">
+              <caret line="79" column="13" lean-forward="true" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -80,7 +49,6 @@
       <find>Light rum</find>
       <find>Ice</find>
       <find>16405</find>
-      <find>\n</find>
       <find>whiskey sou</find>
       <find>&quot;whiskey sou</find>
       <find>&quot;Whiskey sou</find>
@@ -93,6 +61,11 @@
       <find>margarita</find>
       <find>cuba li</find>
       <find>strDrinkThumb&quot;:&quot;</find>
+      <find>15206</find>
+      <find>16156</find>
+      <find>13581</find>
+      <find>\n</find>
+      <find>measurement</find>
     </findStrings>
     <replaceStrings>
       <replace>'</replace>
@@ -113,11 +86,11 @@
         <option value="$PROJECT_DIR$/bin/drinkslist.json" />
         <option value="$PROJECT_DIR$/bin/output/empty.txt" />
         <option value="$PROJECT_DIR$/bin/output/drinks/1-900-FUK-MEUP.json" />
-        <option value="$PROJECT_DIR$/bin/output/map_ingredient_drink.json" />
         <option value="$PROJECT_DIR$/bin/output/drink.json" />
         <option value="$PROJECT_DIR$/bin/output/drinks/'57_Chevy_with_a_White_License_Plate.json" />
-        <option value="$PROJECT_DIR$/bin/scrape_drinks.rb" />
         <option value="$PROJECT_DIR$/bin/output/drink2.json" />
+        <option value="$PROJECT_DIR$/bin/output/map_ingredient_drink.json" />
+        <option value="$PROJECT_DIR$/bin/scrape_drinks.rb" />
       </list>
     </option>
   </component>
@@ -988,12 +961,12 @@
       <updated>1499377906710</updated>
       <workItem from="1499377913247" duration="32156000" />
       <workItem from="1500667686339" duration="2227000" />
-      <workItem from="1500676902884" duration="3790000" />
+      <workItem from="1500676902884" duration="8344000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38173000" />
+    <option name="totallyTimeSpent" value="42727000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1279" height="773" extended-state="6" />
@@ -1229,32 +1202,32 @@
     <entry file="file://$PROJECT_DIR$/bin/output/drinks/'57_Chevy_with_a_White_License_Plate.json" />
     <entry file="file://$PROJECT_DIR$/bin/output/drink2.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="421" column="0" lean-forward="false" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
+        <state relative-caret-position="324">
+          <caret line="28" column="246" lean-forward="true" selection-start-line="28" selection-start-column="246" selection-end-line="28" selection-end-column="246" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/output/ingredients.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="244" column="25" lean-forward="false" selection-start-line="244" selection-start-column="21" selection-end-line="244" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/scrape_drinks.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-390">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        <state relative-caret-position="269">
+          <caret line="251" column="36" lean-forward="false" selection-start-line="251" selection-start-column="36" selection-end-line="251" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/output/map_ingredient_drink.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="73" />
+        <state relative-caret-position="219">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/scrape_drinks.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1185">
+          <caret line="79" column="13" lean-forward="true" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
           <folding />
         </state>
       </provider>
